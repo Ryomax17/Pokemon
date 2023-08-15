@@ -11,7 +11,10 @@
       crossorigin="anonymous"
     />
   </head>
+
+
   <body>
+
     <nav class="bg-dark p-2 d-flex justify-content-between gap-5">
       <img
         src="./public/images/International_Pokemon_logo.svg.webp"
@@ -26,47 +29,11 @@
           <option value="2">Ability</option>
           <option value="3">Region</option>
         </select>
-        <button class="btn btn-secondary" type="button">Search</button>
+        <button id="searchButton" class="btn btn-secondary" type="button">Search</button>
       </section>
     </nav>
-    <main class="p-3 mt-5">
-      <section class="">
-        <h1 class="text-center mb-5">Pokemon</h1>
-        <div class="container-xl">
-          <div class="row gap-5">
-            <div class="card col">
-              <img
-                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/132.png"
-                alt="Ditto"
-              />
-              <hr />
-              <div class="card-body">
-                <h3 class="text-center">Ditto</h3>
-              </div>
-            </div>
-            <div class="card col">
-              <img
-                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/447.png"
-                alt="Riolu"
-              />
-              <hr />
-              <div class="card-body">
-                <h3 class="text-center">Riolu</h3>
-              </div>
-            </div>
-            <div class="card col">
-              <img
-                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png"
-                alt="Pikachu"
-              />
-              <hr />
-              <div class="card-body">
-                <h3 class="text-center">Pikachu</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+    
+ 
       <section class="d-none">
         <h1 class="text-center">Ability</h1>
         <div class="container-xl">
@@ -77,7 +44,10 @@
         <div class="container-xl">
         </div>
       </section>
+      <!-- Agregar el elemento ul con el ID "dataList" aquí -->
+      <ul id="dataList"></ul>
     </main>
+    <script src="src/api/init.js"> </script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"

@@ -1,49 +1,69 @@
+console.log("El archivo init.js se ha cargado correctamente.");
+
 //dirección para obtener el listado en formato json:
 const pokeapi_URL = "https://pokeapi.co/api/v2/";
-
-//acá esta la url para tener la sección de ability
 const ability_URL = "https://pokeapi.co/api/v2/ability/";
-
-//acá esta la url para tener la sección de pokemon
 const pokemon_URL = "https://pokeapi.co/api/v2/pokemon/";
-
-//acá esta la url para tener la sección de region
 const region_URL = "https://pokeapi.co/api/v2/region/";
 
-
-
-//función para mostrar el spinner de carga:
-function showSpinner(){
-  document.getElementById("spinner-wrapper").style.display = "block"; 
-}
-
-//función para ocultar el spinner de carga:
-function hideSpinner(){
-  document.getElementById("spinner-wrapper").style.display = "none";
-}
-
-//función que realiza el fetch() a la url recibida y devuelve un objeto con los datos y el estado de la respuesta:
-function getJSONData(url){
-    let result = {};
-    showSpinner(); 
-    return fetch(url) 
+function getJSONData(url) {
+  return fetch(url)
     .then(response => {
       if (response.ok) {
         return response.json();
-      }else{
+      } else {
         throw Error(response.statusText);
       }
     })
-    .then(function(response) {
-          result.status = 'ok';
-          result.data = response;
-          hideSpinner(); 
-          return result;
+    .then(data => {
+      return { status: 'ok', data: data };
     })
-    .catch(function(error) {
-        result.status = 'error';
-        result.data = error;
-        hideSpinner(); 
-        return result;
+    .catch(error => {
+      return { status: 'error', data: error };
     });
 }
+
+function displayJSONData(url) {
+  getJSONData(url)
+    .then(data => {
+      const list = document.getElementById("dataList"); // Obtener el elemento de lista
+      list.innerHTML = ""; // Limpiar contenido anterior
+
+      // Iterar sobre los datos y agregar elementos de lista
+      data.data.results.forEach(item => {
+        const listItem = document.createElement("li");
+        listItem.textContent = `${item.name}`;
+        list.appendChild(listItem);
+      });
+    })
+    .catch(error => {
+      console.error("Error al obtener datos JSON:", error);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const searchButton = document.getElementById("searchButton"); // Obtener el botón "Search"
+  const selectCategory = document.querySelector(".form-select"); // Obtener el select
+
+  // Agregar evento de clic al botón "Search"
+  searchButton.addEventListener("click", function () {
+    // Obtener el valor seleccionado del select
+    const selectedValue = selectCategory.value;
+
+    // Según la opción seleccionada, obtener la URL correspondiente
+    let categoryURL = "";
+    if (selectedValue === "1") {
+      categoryURL = pokemon_URL;
+    } else if (selectedValue === "2") {
+      categoryURL = ability_URL;
+    } else if (selectedValue === "3") {
+      categoryURL = region_URL;
+    }
+
+    // Llamar a la función para mostrar los datos
+    displayJSONData(categoryURL);
+  });
+
+  // Llamar a la función cuando se carga la página
+  displayJSONData();
+});
