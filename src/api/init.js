@@ -1,4 +1,4 @@
-console.log("El archivo init.js se ha cargado correctamente.");
+console.log("El archivo init.js se cargo correctamente.");
 
 document.addEventListener("DOMContentLoaded", function () {
   const categorySelect = document.getElementById("categorySelect");
